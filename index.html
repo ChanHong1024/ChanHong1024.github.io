@@ -9,7 +9,7 @@
     <label>Course: </label><input type="text" name="course" id="course"/><br>
     <label>Grade: </label><input type="text" name="grade" id="course"/><br>
     <label>Module Value: </label><input type="text" name="mv" id="mv"/>
-    <input type="button" value="insert" name="insert" id="insert" />
+    <input type="button" value="insert" onclick="printgpa" name="insert" id="insert" />
     <table>
   <tr border=1>
     <th>Course<br></th>
@@ -24,3 +24,15 @@
 </table>
   </body>
 </html>
+<script>
+var course = [];
+var grade = [];
+var mv = [];
+var i=0;
+function printgpa(){
+ course[i] = document.getElementById("course").value;
+ grade[i] = document.getElementById("grade").value;
+ mv[i] =   document.getElementById("mv").value;
+ alert(course[i]+grade[i]+mv[i]);
+}
+</script>
