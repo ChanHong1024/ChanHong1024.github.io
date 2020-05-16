@@ -89,6 +89,17 @@ Blockly.Blocks['getstatus'] = {
   }
 };
 
+Blockly.Blocks['object_detection_framework'] = {
+  init: function() {
+    this.appendStatementInput("NAME")
+        .setCheck(null)
+        .appendField("object detection framework");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['objectdetection'] = {
   init: function() {
     this.appendDummyInput()
@@ -174,6 +185,15 @@ Blockly.Python['getstatus'] = function(block) {
   return [code, Blockly.Python.ORDER_NONE];
 };
 
+Blockly.Python['object_detection_framework'] = function(block) {
+  var statements_name = Blockly.Python.statementToCode(block, 'NAME');
+  // TODO: Assemble Python into code variable.
+	$.get("../doc/brain.py",function(data,status){
+		var code = data;
+		code = code.replace("''' STUDENT CAN COPY HERE '''", statements_name);
+		return code;
+	});
+};
 
 Blockly.Python['objectdetection'] = function(block) {
   var dropdown_object = block.getFieldValue('object');
