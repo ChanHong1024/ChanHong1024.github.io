@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Minikame Blockly</title>
+	<!--- Blockly --->
+	<script src="js/blockly_compressed.js"></script>
+	<script src="js/blocks_compressed.js"></script>
+	<script src="js/JavaScript_compressed.js"></script>
+	<script src="js/Python_compressed.js"></script>
+	<script src="msg/js/en.js"></script>
+	<script src="js/minikame.js"></script>  
+	<!--- Bootstrap & Jquery --->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!--- Customize CSS --->
+	<link rel="stylesheet" href="css/index.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<!--- Google Font --->
+	<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+	<!--- Icon --->
+	<link rel="icon" href="img/icon.png" type="image/x-icon">
+	<script src="js/jquery.fileDownload.js"></script>
+</head>
+<body style="font-family: 'Titillium Web', sans-serif;">
+ <nav class="navbar navbar-light bg-light">
+	<a class="navbar-brand" href="#" style="font-size:23px">
+		<img src="img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+		Minikame Blockly
+	</a>
+</nav>
+	</p>
+	<div class="row m-0">
+		<div id="col-sm-6" style="width:50%">
+			<a class="navbar-brand text-white" href="#">Blockly Zone</a>
+			<div id="blocklyDiv" style="height: 500px;"></div>
+		</div>
+		<div class="col-sm-6">
+			<a class="navbar-brand text-white" href="#">Python Code</a>
+			<textarea class="form-control" id="pythoncode" style="width:100%;height: 500px;"></textarea>
+			<button class="btn btn-dark mt-2" onclick="runCode()">Output Python File</button>
+			<button class="btn btn-dark mt-2" onclick="copy()">Copy Source Code</button>
+			<button class="btn btn-dark mt-2" onclick="downloadMAPI()">Download Minikame API</button>
+		</div>
+	</div>
+	</div>
+	  <div class="waveWrapper waveAnimation" style="z-index: -1;">
+  <div class="waveWrapperInner bgTop">
+    <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+  </div>
+  <div class="waveWrapperInner bgMiddle">
+    <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+  </div>
+  <div class="waveWrapperInner bgBottom">
+    <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+  </div>
+</div>
+
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+	  <category name="Minikame" colour="%{BKY_LOGIC_HUE}">
+		  <block type="minikame">
+			<field name="FRH_Angle">90</field>
+			<field name="FLH_Angle">90</field>
+			<field name="BRH_Angle">90</field>
+			<field name="BLH_Angle">90</field>
+			<field name="FRL_Angle">90</field>
+			<field name="FLL_Angle">90</field>
+			<field name="BRL_Angle">90</field>
+			<field name="BLL_Angle">90</field>
+		  </block>
+		  <block type="getdistance"></block>
+		  <block type="callapi"></block>
+	  </category>
+
+	<category name="Logic" colour="%{BKY_LOGIC_HUE}">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+    </category>
+	
+    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+    </category>
+    <category name="Math" colour="%{BKY_MATH_HUE}">
+	
+      <block type="math_number">
+        <field name="NUM">123</field>
+      </block>
+      <block type="math_arithmetic"></block>
+      <block type="math_single"></block>
+    </category>
+    <category name="Text" colour="%{BKY_TEXTS_HUE}">
+      <block type="text"></block>
+      <block type="text_length"></block>
+      <block type="text_print"></block>
+    </category>
+  </xml>
+  <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
+	<block type="controls_if" inline="false" x="20" y="20">
+      <mutation else="1"></mutation>
+      <value name="IF0">
+        <block type="logic_compare" inline="true">
+          <field name="OP">EQ</field>
+          <value name="A">
+            <block type="math_arithmetic" inline="true">
+              <field name="OP">MULTIPLY</field>
+              <value name="A">
+                <block type="math_number">
+                  <field name="NUM">6</field>
+                </block>
+              </value>
+              <value name="B">
+                <block type="math_number">
+                  <field name="NUM">7</field>
+                </block>
+              </value>
+            </block>
+          </value>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">42</field>
+            </block>
+          </value>
+        </block>
+      </value>
+      <statement name="DO0">
+        <block type="text_print" inline="false">
+          <value name="TEXT">
+            <block type="text">
+              <field name="TEXT">Don't panic</field>
+            </block>
+          </value>
+        </block>
+      </statement>
+      <statement name="ELSE">
+        <block type="text_print" inline="false">
+          <value name="TEXT">
+            <block type="text">
+              <field name="TEXT">Panic</field>
+            </block>
+          </value>
+        </block>
+      </statement>
+    </block>
+  </xml>
+
+  <script>
+    var workspace = Blockly.inject('blocklyDiv',
+        {media: 'media/',
+         toolbox: document.getElementById('toolbox')});
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+                               workspace);
+							   					   
+	
+	
+	function onChange() {
+	  Blockly.Python.INFINITE_LOOP_TRAP = null;
+      var code = Blockly.Python.workspaceToCode(workspace);
+	  document.getElementById("pythoncode").innerHTML = code;
+	}
+	
+	workspace.addChangeListener(onChange);	
+
+	function download(filename, text) {
+		var pom = document.createElement('a');
+		pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+		pom.setAttribute('download', filename);
+
+		if (document.createEvent) {
+			var event = document.createEvent('MouseEvents');
+			event.initEvent('click', true, true);
+			pom.dispatchEvent(event);
+		}
+		else {
+			pom.click();
+		}
+	}
+	
+	
+	function downloadMAPI() {
+	$.fileDownload($(this).prop('doc/api.py'))
+        .done(function () { alert('File download a success!'); })
+        .fail(function () { alert('File download failed!'); });
+	}
+	
+	
+	function copy() {
+	  /* Get the text field */
+	  var copyText = document.getElementById("pythoncode");
+
+	  /* Select the text field */
+	  copyText.select();
+	  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+	  /* Copy the text inside the text field */
+	  document.execCommand("copy");
+
+	  /* Alert the copied text */
+	  alert("Copied the text to clipboard ");
+	}
+
+
+    function runCode() {
+      // Generate Python code and run it.
+      window.LoopTrap = 1000;
+      Blockly.Python.INFINITE_LOOP_TRAP =
+          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+      var code = Blockly.Python.workspaceToCode(workspace);
+      Blockly.Python.INFINITE_LOOP_TRAP = null;
+      try {
+        download('MinikameBlockly.py', code);
+      } catch (e) {
+        alert(e);
+      }
+    }
+	
+  </script>
+
+</body>
+</html>
