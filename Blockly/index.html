@@ -20,7 +20,13 @@
 	<!--- Google Font --->
 	<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
 	<!--- Icon --->
-	<link rel="icon" href="img/icon.png" type="image/x-icon">
+	<link rel="icon" href="img/icon.png" type="image/x-icon">	
+	<!--- Code Mirror --->
+	<link rel="stylesheet" href="lib/codemirror.css">
+	<script src="lib/codemirror.js"></script>
+	<script src="lib/python.js"></script>
+	<!--- Clipboard.js --->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
 </head>
 <body style="font-family: 'Titillium Web', sans-serif;">
  <nav class="navbar navbar-light bg-light">
@@ -38,6 +44,7 @@
 		<div class="col-sm-6">
 			<a class="navbar-brand text-white" href="#">Python Code</a>
 			<textarea class="form-control" id="pythoncode" style="width:100%;height: 500px;"></textarea>
+			<textarea class="form-control" id="copycode" style="width:0px;height: 0px;opacity: 0;margin-top: -15px;"></textarea>
 			<button class="btn btn-dark mt-2" onclick="dlPythonCode()">Output Python File</button>
 			<button class="btn btn-dark mt-2" onclick="copy()">Copy Source Code</button>
 			<a href="doc/api.py" download><button class="btn btn-dark mt-2">Download Minikame API</button></a>
@@ -156,10 +163,18 @@
   </xml>
 
   <script>
-    
-		/* TODO: Change toolbox XML ID if necessary. Can export toolbox XML from Workspace Factory. */
+	
+	// Code Mmirror
+	var editorSelector = '#pythoncode';
+	var editor = CodeMirror.fromTextArea(document.getElementById("pythoncode"),{
+                mode:"text/x-python",
+				lineNumbers:true,
+				readOnly: true});
+	editor.setSize(null, 500);	
+	//
+		
+	//
 	var toolbox = document.getElementById("toolbox");
-
 	var options = { 
 		toolbox : toolbox, 
 		collapse : false, 
@@ -203,9 +218,31 @@
 	  Blockly.Python.INFINITE_LOOP_TRAP = null;
       var code = Blockly.Python.workspaceToCode(workspace);
 	  document.getElementById("pythoncode").innerHTML = code;
+	  document.getElementById("copycode").innerHTML = code;
+	  updateText(editor,code);
 	}
 	
 	workspace.addChangeListener(onChange);	
+	
+	function updateText(editor, text) {
+		var doc = editor.getDoc();
+		doc.setValue(text);
+	}
+	
+	function copy() {
+	  /* Get the text field */
+	  var copyText = document.getElementById("pythoncode");
+
+	  /* Select the text field */
+	  copyText.select();
+	  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+	  /* Copy the text inside the text field */
+	  document.execCommand("copy");
+
+	  /* Alert the copied text */
+	  alert("Copied the text to clipboard ");
+	}
 
 	function download(filename, text) {
 		var pom = document.createElement('a');
@@ -220,13 +257,31 @@
 		else {
 			pom.click();
 		}
-	}
+	}	
 	
-	
+	function getCodeMirrorNative(target) {
+		var _target = target;
+		if (typeof _target === 'string') {
+			_target = document.querySelector(_target);
+		}
+		if (_target === null || !_target.tagName === undefined) {
+			throw new Error('Element does not reference a CodeMirror instance.');
+		}
+
+		if (_target.className.indexOf('CodeMirror') > -1) {
+			return _target.CodeMirror;
+		}
+
+		if (_target.tagName === 'TEXTAREA') {
+			return _target.nextSibling.CodeMirror;
+		}
+
+		return null;
+	};
 	
 	function copy() {
 	  /* Get the text field */
-	  var copyText = document.getElementById("pythoncode");
+	  var copyText = document.getElementById("copycode");
 
 	  /* Select the text field */
 	  copyText.select();
@@ -252,8 +307,7 @@
       } catch (e) {
         alert(e);
       }
-    }
-	
+    }	
   </script>
 
 </body>
