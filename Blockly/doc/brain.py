@@ -165,12 +165,6 @@ while True:
     for i in range(len(scores)):
         if ((scores[i] > min_conf_threshold) and (scores[i] <= 1.0)):
             print(labels[int(classes[i])])
-            ''' STUDENT CAN COPY HERE '''
-            if((labels[int(classes[i])]) == 'laptop'):
-                print('abc')
-                ma.Minikame_Move(90,90,90,90,90,90,90,90)
-                time.sleep(1)
-                ma.Minikame_Move(10,10,10,50,10,10,10,50)
             ''' STUDENT CAN COPY HERE '''   
 
 # Clean up
