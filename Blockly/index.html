@@ -43,6 +43,8 @@
 			Blockly Zone
 			</a>
 			<div id="blocklyDiv" style="height: 500px;"></div>
+			<button class="btn btn-secondary mt-2 float-right" onclick="restore()">Restore</button>
+			<button class="btn btn-primary mt-2 float-right  mr-1" onclick="save()">Save Locally</button>
 		</div>
 		<div class="col-sm-6">
 			<a class="navbar-brand text-white" href="#">
@@ -54,8 +56,6 @@
 			<button class="btn btn-dark mt-2" onclick="dlPythonCode()">Output Python File</button>
 			<button class="btn btn-dark mt-2" onclick="copy()">Copy Source Code</button>
 			<a href="doc/api.py" download><button class="btn btn-dark mt-2">Download Minikame API</button></a>
-			<button class="btn btn-dark mt-2" onclick="save()">Save</button>
-			<button class="btn btn-dark mt-2" onclick="restore()">Restore</button>
 		</div>
 	</div>
 	</div>
@@ -306,8 +306,8 @@
 		if(typeof(Storage) !== "undefined"){
 			var xml = Blockly.Xml.workspaceToDom( Blockly.mainWorkspace ); 
 			localStorage.setItem(document.getElementById("blocklyDiv").value,Blockly.Xml.domToText( xml )); 
-			console.log("backupe0"); 
-			//Blockly.mainWorkspace.clear() 
+			console.log("backuped");
+			alert("Block Saved");	
 		}
 		else {
 		
@@ -321,6 +321,7 @@
 			var xml = Blockly.Xml.textToDom(localStorage.getItem(nameOfTheProject));
 			Blockly.Xml.domToWorkspace( Blockly.mainWorkspace, xml );
 			console.log("restored"); 
+			alert("Block Restored");	
 		} 
 	}
 
@@ -338,9 +339,17 @@
       }
     }
 
-	$(window).bind('beforeunload', function(){
-	  return 'Are you sure you want to leave?';
-	});
+window.document.body.onbeforeunload = function()
+{
+    if(confirm('Are you sure you want to leave the page?'))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
   </script>
 
 </body>
