@@ -220,7 +220,7 @@
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
                                workspace);
 							   					   
-	
+	restore();
 	
 	function onChange() {
 	  Blockly.Python.INFINITE_LOOP_TRAP = null;
@@ -320,8 +320,7 @@
 		if(typeof(Storage) !== "undefined"){
 			var xml = Blockly.Xml.textToDom(localStorage.getItem(nameOfTheProject));
 			Blockly.Xml.domToWorkspace( Blockly.mainWorkspace, xml );
-			console.log("restored"); 
-			alert("Block Restored");	
+			console.log("restored"); 	
 		} 
 	}
 
