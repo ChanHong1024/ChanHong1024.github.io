@@ -625,7 +625,7 @@
 	function dlPythonCodeWOD() {
 		$.get("doc/brain.py",function(data,status){
 			var d = data;
-			var code = Blockly.Python.workspaceToCode(workspace).replace("\n","\n\t\t\t");
+			var code = Blockly.Python.workspaceToCode(workspace).replace("\n","\n\t\t\t").replace("\n\t\t\t\n","\n\t\t\t\t");
 			d = d.replace("''' STUDENT CAN COPY HERE '''", code);
 			alert("Data: " + d);
 			try {
