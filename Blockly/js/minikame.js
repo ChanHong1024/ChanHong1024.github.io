@@ -192,7 +192,7 @@ Blockly.Python['object_detection_framework'] = function(block) {
 		var code = data.toString();
 		var newcode = code.replace("STUDENT CAN COPY HERE", statements_name);
 		alert(newcode);
-		return newcode;
+		return newcode.toString();
 	});
 };
 
