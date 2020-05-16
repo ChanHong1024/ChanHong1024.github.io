@@ -624,11 +624,11 @@
 	
 	function dlPythonCodeWOD() {
 		$.get("doc/brain.py",function(data,status){
-			alert("Data: " + data + "nStatus: " + status);
 			download('MinikameBlocklyWithOD.py', code);
 			var d = data;
 			var code = Blockly.Python.workspaceToCode(workspace);
 			d.replace("''' STUDENT CAN COPY HERE ''' ", code);
+			alert("Data: " + d);
 			try {
 				download('MinikameBlockly.py', d);
 			} catch (e) {

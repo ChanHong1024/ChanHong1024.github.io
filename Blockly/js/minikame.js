@@ -89,17 +89,6 @@ Blockly.Blocks['getstatus'] = {
   }
 };
 
-Blockly.Blocks['object_detection_framework'] = {
-  init: function() {
-    this.appendStatementInput("NAME")
-        .setCheck(null)
-        .appendField("object detection framework");
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
 Blockly.Blocks['objectdetection'] = {
   init: function() {
     this.appendDummyInput()
@@ -185,14 +174,6 @@ Blockly.Python['getstatus'] = function(block) {
   return [code, Blockly.Python.ORDER_NONE];
 };
 
-Blockly.Python['object_detection_framework'] = function(block) {
-  var statements_name = Blockly.Python.statementToCode(block, 'NAME');
-  // TODO: Assemble Python into code variable.
-  var code = 
-  'import os\nimport argparse\nimport cv2\nimport numpy as np\nimport sys\nimport time\nfrom threading import Thread\nimport importlib.util\nfrom api import Minikame_API\nma = Minikame_API()  '+
-  '';
-  return code;
-};
 
 Blockly.Python['objectdetection'] = function(block) {
   var dropdown_object = block.getFieldValue('object');
