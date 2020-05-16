@@ -18,7 +18,7 @@ Blockly.Blocks['move'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(300);
- this.setTooltip("");
+ this.setTooltip("FRH,FLH,BRH,BLH,FRL,FLL,BRL,BLL");
  this.setHelpUrl("");
   }
 };
@@ -70,7 +70,7 @@ Blockly.Blocks['reset'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(330);
- this.setTooltip("");
+ this.setTooltip("Reset the robot position");
  this.setHelpUrl("");
   }
 };
@@ -84,7 +84,30 @@ Blockly.Blocks['getstatus'] = {
         .appendField("motor angle");
     this.setOutput(true, null);
     this.setColour(230);
+ this.setTooltip("Get a motor angle");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['object_detection_framework'] = {
+  init: function() {
+    this.appendStatementInput("NAME")
+        .setCheck(null)
+        .appendField("object detection framework");
+    this.setColour(230);
  this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['objectdetection'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("camera detected")
+        .appendField(new Blockly.FieldDropdown([["lapbtop","lapbtop"], ["tv","tv"], ["person","person"], ["dog","dog"], ["cow","cow"], ["bicycle","bicycle"], ["traffic light","traffic light"], ["bus","bus"], ["keyboard","keyboard"], ["airplane","airplane"], ["cell phone","cell phone"], ["book","book"]]), "object");
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("whether the camera detected");
  this.setHelpUrl("");
   }
 };
@@ -159,5 +182,22 @@ Blockly.Python['getstatus'] = function(block) {
 	case 'BRL' : code = 'ma.getStatus()[6]'; break;
 	case 'BLL' : code = 'ma.getStatus()[7]'; break;
   }
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['object_detection_framework'] = function(block) {
+  var statements_name = Blockly.Python.statementToCode(block, 'NAME');
+  // TODO: Assemble Python into code variable.
+  var code = 
+  'import os\nimport argparse\nimport cv2\nimport numpy as np\nimport sys\nimport time\nfrom threading import Thread\nimport importlib.util\nfrom api import Minikame_API\nma = Minikame_API()  '+
+  '';
+  return code;
+};
+
+Blockly.Python['objectdetection'] = function(block) {
+  var dropdown_object = block.getFieldValue('object');
+  // TODO: Assemble Python into code variable.
+  var code = '(labels[int(classes[i])]) == \''+ dropdown_object +'\'';
+  // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
 };
