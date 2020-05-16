@@ -186,14 +186,15 @@ Blockly.Python['getstatus'] = function(block) {
 };
 
 Blockly.Python['object_detection_framework'] = function(block) {
-  var statements_name = Blockly.Python.statementToCode(block, 'NAME');
-  // TODO: Assemble Python into code variable.
+	var statements_name = Blockly.Python.statementToCode(block, 'NAME');
+	var newcode;
+	// TODO: Assemble Python into code variable.
 	$.get("doc/brain.py",function(data,status){
 		var code = data.toString();
-		var newcode = code.replace("STUDENT CAN COPY HERE", statements_name);
-		alert(newcode);
-		return newcode.toString();
+		newcode = code.replace("STUDENT CAN COPY HERE", statements_name);
+		$("#pyhtoncode").html(newcode);
 	});
+	return newcode;
 };
 
 Blockly.Python['objectdetection'] = function(block) {
