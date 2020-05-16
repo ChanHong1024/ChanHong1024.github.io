@@ -21,7 +21,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
 	<!--- Icon --->
 	<link rel="icon" href="img/icon.png" type="image/x-icon">
-	<script src="js/jquery.fileDownload.js"></script>
 </head>
 <body style="font-family: 'Titillium Web', sans-serif;">
  <nav class="navbar navbar-light bg-light">
@@ -188,9 +187,7 @@
 	
 	
 	function downloadMAPI() {
-	$.fileDownload($(this).prop('doc/api.py'))
-        .done(function () { alert('File download a success!'); })
-        .fail(function () { alert('File download failed!'); });
+
 	}
 	
 	
