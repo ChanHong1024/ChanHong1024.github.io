@@ -188,7 +188,7 @@ Blockly.Python['getstatus'] = function(block) {
 Blockly.Python['object_detection_framework'] = function(block) {
   var statements_name = Blockly.Python.statementToCode(block, 'NAME');
   // TODO: Assemble Python into code variable.
-	$.get("../doc/brain.py",function(data,status){
+	$.get("doc/brain.py",function(data,status){
 		var code = data.toString();
 		code = code.replace("''' STUDENT CAN COPY HERE '''", statements_name);
 		return code;
