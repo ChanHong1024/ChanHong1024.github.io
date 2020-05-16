@@ -190,6 +190,7 @@ Blockly.Python['object_detection_framework'] = function(block) {
   // TODO: Assemble Python into code variable.
 	$.get("doc/brain.py",function(data,status){
 		var code = data.toString();
+		alert(code);
 		code = code.replace("''' STUDENT CAN COPY HERE '''", statements_name);
 		return code;
 	});
