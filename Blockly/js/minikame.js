@@ -75,6 +75,20 @@ Blockly.Blocks['reset'] = {
   }
 };
 
+
+Blockly.Blocks['getstatus'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("get")
+        .appendField(new Blockly.FieldDropdown([["Front Right Hip","FRH"], ["Front Left Hip","FLH"], ["Back Right  Hip","BRH"], ["Back Left Hip","BLH"], ["Front Right Leg","FRL"], ["Front Left Leg","FLL"], ["Back Right Leg","BRL"], ["Back Left Leg","BLL"]]), "motor")
+        .appendField("motor angle");
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
 /////////////////////////////////////////////Generator Stubs
 
 
@@ -120,13 +134,30 @@ Blockly.Python['callapi'] = function(block) {
 
 Blockly.Python['wait'] = function(block) {
   var number_second = block.getFieldValue('second');
-  // TODO: Assemble JavaScript into code variable.
+  // TODO: Assemble Python into code variable.
   var code = 'time.sleep(' + number_second + ')\n';
   return code;
 };
 
 Blockly.Python['reset'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
+  // TODO: Assemble Python into code variable.
   var code = 'ma.Minikame_Reset()\n';
   return code;
+};
+
+Blockly.Python['getstatus'] = function(block) {
+  var dropdown_motor = block.getFieldValue('motor');
+  // TODO: Assemble Python into code variable.
+  var code;
+  switch(dropdown_motor){
+	case 'FRH' : code = 'ma.getStatus()[0]'; break;
+	case 'FLH' : code = 'ma.getStatus()[1]'; break;
+	case 'BRH' : code = 'ma.getStatus()[2]'; break;
+	case 'BLH' : code = 'ma.getStatus()[3]'; break;
+	case 'FRL' : code = 'ma.getStatus()[4]'; break;
+	case 'FLL' : code = 'ma.getStatus()[5]'; break;
+	case 'BRL' : code = 'ma.getStatus()[6]'; break;
+	case 'BLL' : code = 'ma.getStatus()[7]'; break;
+  }
+  return [code, Blockly.Python.ORDER_NONE];
 };
