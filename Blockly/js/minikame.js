@@ -192,9 +192,9 @@ Blockly.Python['object_detection_framework'] = function(block) {
 	$.get("doc/brain.py",function(data,status){
 		var code = data;
 		newcode = code.replace("'''STUDENT CAN COPY HERE'''", statements_name);
-		$("#pythoncode").html(newcode.toString());
+		$("#pythoncode").html(newcode);
 	});
-	return newcode.toString();
+	return newcode;
 };
 
 Blockly.Python['objectdetection'] = function(block) {
