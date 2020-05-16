@@ -38,27 +38,27 @@
 		<div class="col-sm-6">
 			<a class="navbar-brand text-white" href="#">Python Code</a>
 			<textarea class="form-control" id="pythoncode" style="width:100%;height: 500px;"></textarea>
-			<button class="btn btn-dark mt-2" onclick="runCode()">Output Python File</button>
+			<button class="btn btn-dark mt-2" onclick="dlPythonCode()">Output Python File</button>
 			<button class="btn btn-dark mt-2" onclick="copy()">Copy Source Code</button>
-			<button class="btn btn-dark mt-2" onclick="downloadMAPI()">Download Minikame API</button>
+			<a href="doc/api.py" download><button class="btn btn-dark mt-2">Download Minikame API</button></a>
 		</div>
 	</div>
 	</div>
 	  <div class="waveWrapper waveAnimation" style="z-index: -1;">
   <div class="waveWrapperInner bgTop">
-    <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    <div class="wave waveTop" style="background-image: url('img/wave-top.png')"></div>
   </div>
   <div class="waveWrapperInner bgMiddle">
-    <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    <div class="wave waveMiddle" style="background-image: url('img/wave-mid.png')"></div>
   </div>
   <div class="waveWrapperInner bgBottom">
-    <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    <div class="wave waveBottom" style="background-image: url('img/wave-bot.png')"></div>
   </div>
 </div>
 
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
 	  <category name="Minikame" colour="%{BKY_LOGIC_HUE}">
-		  <block type="minikame">
+		  <block type="move">
 			<field name="FRH_Angle">90</field>
 			<field name="FLH_Angle">90</field>
 			<field name="BRH_Angle">90</field>
@@ -70,6 +70,8 @@
 		  </block>
 		  <block type="getdistance"></block>
 		  <block type="callapi"></block>
+		  <block type="wait"></block>
+		  <block type="reset"></block>
 	  </category>
 
 	<category name="Logic" colour="%{BKY_LOGIC_HUE}">
@@ -154,9 +156,44 @@
   </xml>
 
   <script>
-    var workspace = Blockly.inject('blocklyDiv',
-        {media: 'media/',
-         toolbox: document.getElementById('toolbox')});
+    
+		/* TODO: Change toolbox XML ID if necessary. Can export toolbox XML from Workspace Factory. */
+	var toolbox = document.getElementById("toolbox");
+
+	var options = { 
+		toolbox : toolbox, 
+		collapse : false, 
+		comments : false, 
+		disable : false, 
+		maxBlocks : Infinity, 
+		trashcan : true, 
+		horizontalLayout : false, 
+		toolboxPosition : 'start', 
+		css : true, 
+		media : 'media/', 
+		rtl : false, 
+		scrollbars : false, 
+		sounds : true, 
+		oneBasedIndex : true, 
+		grid : {
+			spacing : 20, 
+			length : 1, 
+			colour : '#888', 
+			snap : true
+		}, 
+		zoom : {
+			controls : true, 
+			wheel : true, 
+			startScale : 1, 
+			maxScale : 3, 
+			minScale : 0.3, 
+			scaleSpeed : 1.2
+		}
+	};
+	
+	var workspace = Blockly.inject('blocklyDiv',options);
+		 
+		 
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
                                workspace);
 							   					   
@@ -186,11 +223,6 @@
 	}
 	
 	
-	function downloadMAPI() {
-		e.preventDefault();  //stop the browser from following
-		window.location.href = 'doc/api.py';
-	}
-	
 	
 	function copy() {
 	  /* Get the text field */
@@ -208,7 +240,7 @@
 	}
 
 
-    function runCode() {
+    function dlPythonCode() {
       // Generate Python code and run it.
       window.LoopTrap = 1000;
       Blockly.Python.INFINITE_LOOP_TRAP =

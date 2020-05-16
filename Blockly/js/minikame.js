@@ -2,11 +2,11 @@
 
 
 
-Blockly.Blocks['minikame'] = {
+Blockly.Blocks['move'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("move")
-        .appendField(new Blockly.FieldAngle(90, 0, 180), "FRH_Angle")
+        .appendField(new Blockly.FieldAngle(90), "FRH_Angle")
         .appendField(new Blockly.FieldAngle(90), "FLH_Angle")
         .appendField(new Blockly.FieldAngle(90), "BRH_Angle")
         .appendField(new Blockly.FieldAngle(90), "BLH_Angle")
@@ -49,11 +49,37 @@ Blockly.Blocks['callapi'] = {
   }
 };
 
+Blockly.Blocks['wait'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("wait")
+        .appendField(new Blockly.FieldNumber(0), "second")
+        .appendField("s");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(65);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['reset'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("reset robot position");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(330);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
 /////////////////////////////////////////////Generator Stubs
 
 
 
-  Blockly.Python['minikame'] = function(block) {
+  Blockly.Python['move'] = function(block) {
   var angle_frh_angle = block.getFieldValue('FRH_Angle');
   var angle_flh_angle = block.getFieldValue('FLH_Angle');
   var angle_brh_angle = block.getFieldValue('BRH_Angle');
@@ -89,5 +115,18 @@ Blockly.Python['callapi'] = function(block) {
   var statements_name = Blockly.Python.statementToCode(block, 'stat');
   var code = 'from api import Minikame_API \nimport time\nma = Minikame_API()\nif __name__ == \'__main__\':\n'
   + statements_name;
+  return code;
+};
+
+Blockly.Python['wait'] = function(block) {
+  var number_second = block.getFieldValue('second');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'time.sleep(' + number_second + ')\n';
+  return code;
+};
+
+Blockly.Python['reset'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'ma.Minikame_Reset()\n';
   return code;
 };
