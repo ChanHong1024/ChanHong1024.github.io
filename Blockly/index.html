@@ -601,20 +601,18 @@
 	function restore(){
 		Blockly.mainWorkspace.clear() 
 		var nameOfTheProject = document.getElementById("blocklyDiv").value;
-		if(typeof(Storage) !== "undefined"){
+		if(typeof(Storage) !== "undefined" && localStorage.getItem("minikame") !== null){
 			var xml = Blockly.Xml.textToDom(localStorage.getItem("minikame"));
 			Blockly.Xml.domToWorkspace( Blockly.mainWorkspace, xml );
 			console.log("restored"); 	
-		} 
+		}else{
+		alert("not data not found(if you are not newbie)")
+		}		
 	}
 
     function dlPythonCode() {
       // Generate Python code and run it.
-      window.LoopTrap = 1000;
-      Blockly.Python.INFINITE_LOOP_TRAP =
-          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
       var code = Blockly.Python.workspaceToCode(workspace);
-      Blockly.Python.INFINITE_LOOP_TRAP = null;
       try {
         download('MinikameBlockly.py', code);
       } catch (e) {
