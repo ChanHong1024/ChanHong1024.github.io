@@ -150,7 +150,7 @@ Blockly.Blocks['objectdetection'] = {
 Blockly.Python['callapi'] = function(block) {
   // TODO: Assemble Python into code variable.
   var statements_name = Blockly.Python.statementToCode(block, 'stat');
-  var code = 'from api import Minikame_API \nimport time\nma = Minikame_API()\nif __name__ == \'__main__\':\n'
+  var code = 'from api import Minikame_API \nimport time\nma = Minikame_API()\nif __name__ == \'__main__\':\n  time.sleep(5) #for wait robot reset\n'
   + statements_name;
   return code;
 };
