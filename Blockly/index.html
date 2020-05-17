@@ -54,9 +54,9 @@
 			<textarea class="form-control" id="pythoncode" style="width:100%;height: 500px;"></textarea>
 			<textarea class="form-control" id="copycode" style="width:0px;height: 0px;opacity: 0;margin-top: -15px;"></textarea>
 			<button class="btn btn-dark mt-2" onclick="dlPythonCode()">Output Python File</button>
-			<button class="btn btn-dark mt-2" onclick="dlPythonCodeWOD()">Output Python File( With Object Detection )</button>
 			<button class="btn btn-dark mt-2" onclick="copy()">Copy Source Code</button>
 			<a href="doc/api.py" download><button class="btn btn-dark mt-2">Download Minikame API</button></a>
+			<a href="doc/minikameOD.zip" download><button class="btn btn-dark mt-2">Download Object Detection needed File</button></a>
 		</div>
 	</div>
 	</div>
@@ -589,7 +589,7 @@
 	function save(){ 
 		if(typeof(Storage) !== "undefined"){
 			var xml = Blockly.Xml.workspaceToDom( Blockly.mainWorkspace ); 
-			localStorage.setItem(document.getElementById("blocklyDiv").value,Blockly.Xml.domToText( xml )); 
+			localStorage.setItem('minikame',Blockly.Xml.domToText( xml )); 
 			console.log("backuped");
 			alert("Block Saved");	
 		}
@@ -602,7 +602,7 @@
 		Blockly.mainWorkspace.clear() 
 		var nameOfTheProject = document.getElementById("blocklyDiv").value;
 		if(typeof(Storage) !== "undefined"){
-			var xml = Blockly.Xml.textToDom(localStorage.getItem(nameOfTheProject));
+			var xml = Blockly.Xml.textToDom(localStorage.getItem("minikame"));
 			Blockly.Xml.domToWorkspace( Blockly.mainWorkspace, xml );
 			console.log("restored"); 	
 		} 
