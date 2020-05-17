@@ -104,7 +104,7 @@ Blockly.Blocks['objectdetection'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("camera detected")
-        .appendField(new Blockly.FieldDropdown([["lapbtop","lapbtop"], ["tv","tv"], ["person","person"], ["dog","dog"], ["cow","cow"], ["bicycle","bicycle"], ["traffic light","traffic light"], ["bus","bus"], ["keyboard","keyboard"], ["airplane","airplane"], ["cell phone","cell phone"], ["book","book"]]), "object");
+        .appendField(new Blockly.FieldDropdown([["laptop","laptop"], ["tv","tv"], ["person","person"], ["dog","dog"], ["cow","cow"], ["bicycle","bicycle"], ["traffic light","traffic light"], ["bus","bus"], ["keyboard","keyboard"], ["airplane","airplane"], ["cell phone","cell phone"], ["book","book"]]), "object");
     this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("whether the camera detected");
