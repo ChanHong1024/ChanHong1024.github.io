@@ -3,7 +3,7 @@ from time import sleep
 import sys
 
 
-COM_PORT = 'COM4'  # PORT
+COM_PORT = '/dev/ttyUSB0'  # PORT
 BAUD_RATES = 9600
 ser = serial.Serial(COM_PORT, BAUD_RATES)
 
